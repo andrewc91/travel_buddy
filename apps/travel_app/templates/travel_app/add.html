@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script type="text/javascript" charset="utf-8"></script>
+    <title>Add a Trip</title>
+  </head>
+  <body>
+    <h1>Add a Trip</h1>
+
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div>
+      <form class="ui form" action="{% url 'travel:process' %}" method="post">
+        {% csrf_token %}
+        Destinaton: <input type="text" name="destination" placeholder="Destination">
+        Plan to do: <input type="text" name="plan" placeholder="Description">
+        Travel Date From: <input type="text" name="start_date" placeholder="Travel Date From">
+        Travel Date To: <input type="text" name="end_date" placeholder="Travel Date To">
+        <input type="submit" value="Add"><br><br>
+      </form>
+    </div>
+    <a href="{% url 'travel:index' %}">Home</a><br><br>
+    <a href="{% url 'login:logout' %}">Logout</a>
+  </body>
+</html>
