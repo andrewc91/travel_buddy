@@ -2,6 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script type="text/javascript" charset="utf-8"></script>
     <title>Destination</title>
   </head>
   <body>
@@ -13,14 +17,18 @@
         {% endfor %}
         </ul>
     {% endif %}
-    
+
     {% if trips %}
     <h1>{{trips.destination}}</h1>
     <h3>Planned By: {{trips.user.first_name}}</h3>
     <h3>Travel Date From: {{trips.start_date}}</h3>
-    <h3>Travel Date To: {{trips.end_date}}</h3>
+    <h3>Travel Date To: {{trips.end_date}}</h3><br>
     {% endif %}
 
+<h1>Everyone in the trip:</h1>
+  {% for other in group %}
+    <h3>{{other.first_name}} {{other.last_name}}</h3>
+  {% endfor %}
 
     <a href="{% url 'travel:index' %}">Home</a>
     <a href="{% url 'login:logout' %}">Logout</a>

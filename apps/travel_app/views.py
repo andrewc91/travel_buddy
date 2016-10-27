@@ -10,8 +10,8 @@ def index(request):
         user = User.objects.get(id=request.session['user_id'])
         context = {
             'data': user,
-            'users': Trip.objects.all().filter(group=user),
-            'trips': Trip.objects.all().exclude(group=user)
+            'trips': Trip.objects.all().filter(group=user),
+            'users': Trip.objects.all().exclude(group=user)
         }
         return render(request, 'travel_app/index.html', context)
     else:
@@ -46,18 +46,17 @@ def join(request, trip_id):
     messages.success(request, result[1])
     return redirect(reverse('travel:index'))
 
-# def delete(request, trip_id):
-#     Trip.objects.get(id=trip_id).delete()
-#     messages.success(request, "Successfully deleted")
-#     return redirect(reverse('travel:index'))
+def delete(request, trip_id):
+    Trip.objects.get(id=trip_id).delete()
+    messages.success(request, "Successfully deleted")
+    return redirect(reverse('travel:index'))
 
-# def cancel(request, trip_id):
-#     u = User.objects.get(id=request.session['user'])
-#     trip = Travel.objects.get(id=trip_id)
-#     trip.users.remove(u)
-#     messages.success(request, "Trip cancelled.")
-#     return redirect(reverse('travel:index'))
-
+def cancel(request, trip_id):
+    user = User.objects.get(id=request.session['user_id'])
+    trip = Trip.objects.get(id=trip_id)
+    trip.group.remove(user)
+    messages.success(request, "Trip cancelled.")
+    return redirect(reverse('travel:index'))
 
 def logout(request):
     request.session.clear()

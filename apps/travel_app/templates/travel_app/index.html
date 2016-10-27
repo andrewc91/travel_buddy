@@ -28,15 +28,21 @@
           <th>Travel Start Date</th>
           <th>Travel End Date</th>
           <th>Plan</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody>
-        {% for user in users %}
+        {% for trip in trips %}
         <tr>
-          <td><a href="{% url 'travel:destination' user.id %}">{{user.destination}}</a></td>
-          <td>{{user.start_date}}</td>
-          <td>{{user.end_date}}</td>
-          <td>{{user.plan}}</td>
+          <td><a href="{% url 'travel:destination' trip.id %}">{{trip.destination}}</a></td>
+          <td>{{trip.start_date}}</td>
+          <td>{{trip.end_date}}</td>
+          <td>{{trip.plan}}</td>
+          {% if data == trip.user %}
+          <td><a href="{% url 'travel:delete' trip.id %}">Delete</a></td>
+          {% else %}
+          <td><a href="{% url 'travel:cancel' trip.id %}">Cancel</a></td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
@@ -56,13 +62,13 @@
         </tr>
       </thead>
       <tbody>
-        {% for trip in trips %}
+        {% for user in users %}
         <tr>
-          <td>{{trip.user.first_name}}</td>
-          <td><a href="{% url 'travel:destination' trip.id %}">{{trip.destination}}</a></td>
-          <td>{{trip.start_date}}</td>
-          <td>{{trip.end_date}}</td>
-          <td><a href="{% url 'travel:join' trip.id %}">JOIN</td>
+          <td>{{user.user.first_name}}</td>
+          <td><a href="{% url 'travel:destination' user.id %}">{{user.destination}}</a></td>
+          <td>{{user.start_date}}</td>
+          <td>{{user.end_date}}</td>
+          <td><a href="{% url 'travel:join' user.id %}">JOIN</td>
         </tr>
         {% endfor %}
       </tbody>

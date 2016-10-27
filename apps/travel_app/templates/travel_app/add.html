@@ -8,9 +8,18 @@
     <script type="text/javascript" charset="utf-8"></script>
     <title>Add a Trip</title>
   </head>
-  <body>
-    <h1>Add a Trip</h1>
 
+<style>
+div {
+  width: 400px;
+  height: 500px;
+  border: 2px solid black;
+  margin: auto;
+  padding: 25px;
+}
+</style>
+
+  <body>
     {% if messages %}
         <ul>
         {% for message in messages %}
@@ -20,16 +29,17 @@
     {% endif %}
 
     <div>
+      <h1>Add a Trip</h1>
       <form class="ui form" action="{% url 'travel:process' %}" method="post">
         {% csrf_token %}
         Destinaton: <input type="text" name="destination" placeholder="Destination">
         Plan to do: <input type="text" name="plan" placeholder="Description">
-        Travel Date From: <input type="text" name="start_date" placeholder="Travel Date From">
-        Travel Date To: <input type="text" name="end_date" placeholder="Travel Date To">
+        Travel Date From: <input type="date" name="start_date">
+        Travel Date To: <input type="date" name="end_date"><br><br>
         <input type="submit" value="Add"><br><br>
+        <a href="{% url 'travel:index' %}">Home</a><br><br>
+        <a href="{% url 'login:logout' %}">Logout</a>
       </form>
     </div>
-    <a href="{% url 'travel:index' %}">Home</a><br><br>
-    <a href="{% url 'login:logout' %}">Logout</a>
   </body>
 </html>

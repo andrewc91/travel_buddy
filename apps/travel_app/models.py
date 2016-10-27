@@ -12,8 +12,8 @@ class TripManager(models.Manager):
             errors.append('Please fill out all fields of the form!')
 
         if len(input['start_date']) > 0 or len(input['end_date']) > 0:
-            start_date = datetime.strptime(input['start_date'], "%m-%d-%Y")
-            end_date = datetime.strptime(input['end_date'], "%m-%d-%Y")
+            start_date = datetime.strptime(input['start_date'], "%Y-%m-%d")
+            end_date = datetime.strptime(input['end_date'], "%Y-%m-%d")
 
             if datetime.today() >= start_date:
                 errors.append('Start date must be in the future')
@@ -40,7 +40,7 @@ class Trip(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     user = models.ForeignKey(User)
-    group = models.ManyToManyField(User, related_name='travels')
+    group = models.ManyToManyField(User, related_name='travel')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = TripManager()

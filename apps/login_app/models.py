@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
 import bcrypt, re
-from django.core.exceptions import ObjectDoesNotExist
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
@@ -50,8 +49,8 @@ class UserManager(models.Manager):
         errors = []
         user = User.objects.filter(email=input['email'])
         if user.exists():
-            HashPw = user[0].password.encode()
             InputPw = input['password'].encode()
+            HashPw = user[0].password.encode()
 
             if bcrypt.checkpw(InputPw, HashPw):
                 return (True, user[0])
